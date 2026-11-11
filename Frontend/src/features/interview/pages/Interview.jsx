@@ -9,7 +9,7 @@ const NAV_ITEMS = [
   { id: 'roadmap', label: 'Preparation roadmap', icon: '✳' },
 ]
 
-function QuestionCard({ item, index }) {
+function QuestionCard({ item, index, practiced, onTogglePracticed }) {
   const [open, setOpen] = useState(false)
 
   return (
@@ -53,6 +53,14 @@ function QuestionCard({ item, index }) {
               'Use a specific example, explain your approach, and share the result.'}
           </p>
 
+          <button
+            type="button"
+            className={`practice-toggle ${practiced ? 'is-practiced' : ''}`}
+            onClick={onTogglePracticed}
+          >
+            {practiced ? '✓ Practiced' : 'Mark as practiced'}
+          </button>
+
         </div>
       )}
     </article>
@@ -88,6 +96,7 @@ function RoadMapDay({ day }) {
 
 export default function Interview() {
   const [activeNav, setActiveNav] = useState('technical')
+  const [practicedQuestions, setPracticedQuestions] = useState({})
   const [downloadError, setDownloadError] = useState('')
 
   const {
@@ -173,6 +182,18 @@ export default function Interview() {
 
   const currentQuestions =
     activeNav === 'technical' ? technical : behavioral
+
+  const practicedCount = currentQuestions.filter((_, index) =>
+    practicedQuestions[`${activeNav}-${index}`]
+  ).length
+
+  const togglePracticed = (index) => {
+    const key = `${activeNav}-${index}`
+    setPracticedQuestions(previous => ({
+      ...previous,
+      [key]: !previous[key]
+    }))
+  }
 
   const download = async () => {
     setDownloadError('')
@@ -374,6 +395,18 @@ export default function Interview() {
 
                   </div>
 
+                  {currentQuestions.length > 0 && (
+                    <div className="practice-progress" aria-live="polite">
+                      <div className="practice-progress-copy">
+                        <span>YOUR PRACTICE PROGRESS</span>
+                        <strong>{practicedCount} of {currentQuestions.length} practiced</strong>
+                      </div>
+                      <div className="practice-progress-track">
+                        <span style={{ width: `${(practicedCount / currentQuestions.length) * 100}%` }} />
+                      </div>
+                    </div>
+                  )}
+
                   {currentQuestions.length ? (
                     <div className="question-list">
                       {currentQuestions.map((item, index) => (
@@ -381,6 +414,8 @@ export default function Interview() {
                           key={index}
                           item={item}
                           index={index}
+                          practiced={Boolean(practicedQuestions[`${activeNav}-${index}`])}
+                          onTogglePracticed={() => togglePracticed(index)}
                         />
                       ))}
                     </div>
