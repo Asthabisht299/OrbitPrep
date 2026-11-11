@@ -2,11 +2,12 @@
 import React, { useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router'
 import { useInterview } from '../hooks/useInterview.js'
+import OrbitPrepLogo, { OrbitMark } from '../components/OrbitPrepLogo.jsx'
 
 const NAV_ITEMS = [
-  { id: 'technical', label: 'Technical questions', icon: '⌘' },
-  { id: 'behavioral', label: 'Behavioral questions', icon: '◎' },
-  { id: 'roadmap', label: 'Preparation roadmap', icon: '✳' },
+  { id: 'technical', label: 'Technical questions', icon: 'code' },
+  { id: 'behavioral', label: 'Behavioral questions', icon: 'people' },
+  { id: 'roadmap', label: 'Preparation roadmap', icon: 'plan' },
 ]
 
 function QuestionCard({ item, index, practiced, onTogglePracticed }) {
@@ -75,7 +76,7 @@ function RoadMapDay({ day }) {
         <span className="count-pill">
           DAY {day?.day ?? '—'}
         </span>
-        <span className="roadmap-day-icon">✦</span>
+        <span className="roadmap-day-icon"><OrbitMark className="ui-mark" /></span>
       </div>
 
       <h3>{day?.focus || 'Preparation focus'}</h3>
@@ -126,8 +127,7 @@ export default function Interview() {
 
         <header className="topbar dashboard-topbar">
           <Link className="brand brand-v2" to="/">
-            <span className="brand-mark">✳</span>
-            <span>orbit<em>prep</em></span>
+            <OrbitPrepLogo />
           </Link>
         </header>
 
@@ -214,12 +214,11 @@ export default function Interview() {
       <header className="topbar dashboard-topbar">
 
         <Link className="brand brand-v2" to="/">
-          <span className="brand-mark">✳</span>
-          <span>orbit<em>prep</em></span>
+          <OrbitPrepLogo />
         </Link>
 
         <div className="topbar-right">
-          <span className="pill">✦ AI REPORT</span>
+          <span className="pill">AI REPORT</span>
 
           <button
             className="btn btn-ghost"
@@ -279,7 +278,7 @@ export default function Interview() {
                 onClick={() => setActiveNav(item.id)}
                 aria-current={activeNav === item.id ? 'page' : undefined}
               >
-                <span className="report-nav-icon">{item.icon}</span>
+                <span className="report-nav-icon" aria-hidden="true">{item.icon === "code" ? "⌘" : item.icon === "people" ? "◎" : <OrbitMark className="ui-mark" />}</span>
                 <span>{item.label}</span>
                 <span className="nav-item-arrow">›</span>
               </button>
@@ -510,7 +509,7 @@ export default function Interview() {
       </main>
 
       <footer className="footer-note">
-        Built for your next big opportunity · orbitprep ✳
+        Built for your next big opportunity.
       </footer>
 
     </div>
