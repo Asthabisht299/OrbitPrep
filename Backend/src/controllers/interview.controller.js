@@ -44,7 +44,9 @@ async function generateInterViewReportController(req, res) {
         resume: resumeText,
         selfDescription,
         jobDescription,
-        ...generatedReport
+        ...generatedReport,
+        // The schema requires a title; keep a safe fallback if AI omits it.
+        title: generatedReport.title?.trim() || "Interview preparation"
     })
 
     return res.status(201).json({
