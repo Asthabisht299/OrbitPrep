@@ -94,6 +94,14 @@ function QuestionCard({ item, index, practiced, onTogglePracticed }) {
                   <strong>{evaluation.score}<small>/100</small></strong>
                 </div>
                 <p className="evaluation-summary">{evaluation.summary}</p>
+                <div className="evaluation-rubric">
+                  {Object.entries(evaluation.rubric || {}).map(([key, value]) => (
+                    <div className="rubric-row" key={key}>
+                      <div className="rubric-label"><span>{key.replace(/([A-Z])/g, " $1").replace(/^./, (letter) => letter.toUpperCase())}</span><strong>{value}/100</strong></div>
+                      <div className="rubric-track"><span style={{ width: `${value}%` }} /></div>
+                    </div>
+                  ))}
+                </div>
                 <div className="evaluation-columns">
                   <div><h4>What you did well</h4><ul>{evaluation.strengths?.map((item, i) => <li key={i}>{item}</li>)}</ul></div>
                   <div><h4>How to improve</h4><ul>{evaluation.improvements?.map((item, i) => <li key={i}>{item}</li>)}</ul></div>
