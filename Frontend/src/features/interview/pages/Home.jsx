@@ -3,6 +3,7 @@ import React, { useMemo, useRef, useState } from 'react'
 import { useNavigate, Link } from 'react-router'
 import { useInterview } from '../hooks/useInterview.js'
 import { useAuth } from '../../auth/hooks/useAuth.js'
+import OrbitPrepLogo, { OrbitMark } from '../components/OrbitPrepLogo.jsx'
 
 export default function Home() {
   const {
@@ -109,12 +110,11 @@ export default function Home() {
       <header className="topbar dashboard-topbar">
 
         <Link className="brand brand-v2" to="/">
-          <span className="brand-mark">✳</span>
-          <span>orbit<em>prep</em></span>
+          <OrbitPrepLogo />
         </Link>
 
         <div className="topbar-right">
-          <span className="pill">✦ AI CAREER WORKSPACE</span>
+          <span className="pill">AI CAREER WORKSPACE</span>
 
           <span className="user-greeting">
             Welcome, {name}
@@ -153,7 +153,7 @@ export default function Home() {
           </div>
 
           <div className="dashboard-hero-badge">
-            <span>✦</span>
+            <span className="hero-status-dot" aria-hidden="true" />
             <div>
               <strong>Ready for your next role?</strong>
               <small>Your AI workspace is waiting.</small>
@@ -170,7 +170,7 @@ export default function Home() {
             <section className="card form-card dashboard-form-card">
 
               <div className="card-heading">
-                <div className="icon-tile">⌘</div>
+                <div className="icon-tile"><OrbitMark className="ui-mark" /></div>
 
                 <div>
                   <span className="section-kicker">
@@ -351,7 +351,7 @@ export default function Home() {
                 <div className="submit-row dashboard-submit">
 
                   <p>
-                    <span>✦</span> AI-powered personalized analysis
+                    <span className="ai-status-dot" aria-hidden="true" /> AI-powered personalized analysis
                     <br />
                     Your report will be saved to your account.
                   </p>
@@ -442,7 +442,7 @@ export default function Home() {
                   Accurate details lead to more useful suggestions.
                 </p>
 
-                <div className="tip-decoration">✦</div>
+                <div className="tip-decoration" aria-hidden="true"><OrbitMark className="ui-mark" /></div>
 
               </section>
 
@@ -496,7 +496,7 @@ export default function Home() {
                 >
 
                   <div className="report-card-top">
-                    <span className="report-symbol">✧</span>
+                    <span className="report-symbol"><OrbitMark className="ui-mark" /></span>
 
                     <span className="report-score">
                       {Number.isFinite(Number(report.matchScore))
@@ -537,7 +537,7 @@ export default function Home() {
 
             <div className="empty-state dashboard-empty">
 
-              <span className="empty-icon">✦</span>
+              <span className="empty-icon"><OrbitMark className="ui-mark" /></span>
 
               <h3>Your workspace starts here.</h3>
 
@@ -555,7 +555,7 @@ export default function Home() {
       </main>
 
       <footer className="footer-note">
-        Built for your next big opportunity · orbitprep ✳
+        Built for your next big opportunity.
       </footer>
 
     </div>
