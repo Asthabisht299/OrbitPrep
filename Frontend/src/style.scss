@@ -1852,3 +1852,93 @@ textarea { resize: vertical; }
   .orbitprep-logo-mark { width: 30px; height: 30px; flex-basis: 30px; }
   .orbitprep-wordmark { font-size: 1.04rem; }
 }
+
+
+/* AI ANSWER COACH */
+.answer-coach {
+  display: grid;
+  gap: 11px;
+  margin-top: 22px;
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
+}
+.practice-answer-input {
+  width: 100%;
+  min-height: 132px;
+  padding: 14px 15px;
+  border: 1px solid rgba(137, 164, 220, .24);
+  border-radius: 13px;
+  outline: none;
+  resize: vertical;
+  background: rgba(8, 15, 31, .72);
+  color: var(--white);
+  font: 400 .92rem/1.65 'DM Sans', sans-serif;
+  transition: border-color .2s ease, box-shadow .2s ease;
+}
+.practice-answer-input:focus {
+  border-color: rgba(85, 230, 255, .72);
+  box-shadow: 0 0 0 3px rgba(85, 230, 255, .1);
+}
+.practice-answer-input::placeholder { color: var(--muted); }
+.practice-answer-meta {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  color: var(--muted);
+  font-size: .74rem;
+}
+.evaluate-answer-button { justify-self: start; }
+.evaluate-answer-button:disabled {
+  opacity: .48;
+  cursor: not-allowed;
+  transform: none;
+}
+.practice-error {
+  margin: 0;
+  color: #ff9baf;
+  font-size: .84rem;
+}
+.evaluation-result {
+  display: grid;
+  gap: 14px;
+  margin-top: 8px;
+  padding: 18px;
+  border: 1px solid rgba(117, 224, 169, .24);
+  border-radius: 14px;
+  background: rgba(21, 45, 48, .28);
+}
+.evaluation-score {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.evaluation-score span {
+  color: var(--muted);
+  font: 500 .68rem var(--mono);
+  letter-spacing: .08em;
+}
+.evaluation-score strong {
+  color: #91e9b8;
+  font: 700 1.6rem 'Space Grotesk', sans-serif;
+}
+.evaluation-score small { color: var(--muted); font-size: .75rem; }
+.evaluation-summary { margin: 0; color: var(--white); line-height: 1.6; }
+.evaluation-columns {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+.evaluation-result h4 {
+  margin: 0 0 8px;
+  color: #9fe7f5;
+  font-size: .84rem;
+}
+.evaluation-result ul { margin: 0; padding-left: 18px; color: var(--muted); }
+.evaluation-result li { margin: 5px 0; line-height: 1.5; }
+.evaluation-result > p:last-child { margin: 0; color: var(--muted); line-height: 1.65; }
+@media (max-width: 640px) {
+  .evaluation-columns { grid-template-columns: 1fr; }
+  .evaluation-result { padding: 14px; }
+}
