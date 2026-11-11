@@ -2,6 +2,7 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router'
 import { useAuth } from '../hooks/useAuth'
+import OrbitPrepLogo, { OrbitMark } from '../../interview/components/OrbitPrepLogo.jsx'
 
 export default function Register() {
   const navigate = useNavigate()
@@ -40,8 +41,7 @@ export default function Register() {
       <section className="auth-story auth-story-v2">
 
         <Link to="/register" className="brand brand-v2">
-          <span className="brand-mark">✳</span>
-          <span>orbit<em>prep</em></span>
+          <OrbitPrepLogo />
         </Link>
 
         <div className="story-copy story-copy-v2">
@@ -71,14 +71,14 @@ export default function Register() {
                 <span className="status-dot"></span>
                 YOUR CAREER JOURNEY
               </span>
-              <span className="visual-icon">✦</span>
+              <span className="visual-icon"><OrbitMark className="ui-mark" /></span>
             </div>
 
             <div className="visual-orbit">
               <div className="orbit-ring orbit-ring-one"></div>
               <div className="orbit-ring orbit-ring-two"></div>
               <div className="orbit-core">AI</div>
-              <span className="orbit-node node-one">✦</span>
+              <span className="orbit-node node-one" aria-hidden="true" />
               <span className="orbit-node node-two">⌘</span>
               <span className="orbit-node node-three">↗</span>
             </div>
@@ -95,7 +95,7 @@ export default function Register() {
         </div>
 
         <div className="story-footer-v2">
-          <span>✳</span>
+          <OrbitMark className="ui-mark" />
           Small steps. Stronger preparation. Bigger possibilities.
         </div>
 
@@ -107,8 +107,7 @@ export default function Register() {
         <div className="auth-card auth-card-v2">
 
           <div className="login-mobile-brand">
-            <span className="brand-mark">✳</span>
-            orbit<em>prep</em>
+            <OrbitPrepLogo />
           </div>
 
           <div className="login-heading">
