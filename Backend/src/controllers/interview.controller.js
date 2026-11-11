@@ -1,6 +1,6 @@
 const pdfParse = require("pdf-parse")
 const interviewReportModel = require("../models/interviewReport.model")
-const { generateInterviewReport, generateResumePdf } = require("../services/ai.services")
+const { generateInterviewReport, generateResumePdf, evaluatePracticeAnswer } = require("../services/ai.services")
 
 /**
  * Generate an interview report from the candidate's resume and target role.
@@ -120,9 +120,41 @@ async function generateResumePdfController(req, res) {
     return res.send(pdfBuffer)
 }
 
+
+
+/**
+ * Evaluate a candidate's written answer with Gemini.
+ */
+async function evaluatePracticeAnswerController(req, res) {
+    const { question, intention = "", answer = "", targetRole = "" } = req.body || {}
+
+    if (typeof question !== "string" || !question.trim()) {
+        return res.status(400).json({ message: "Interview question is required." })
+    }
+    if (typeof answer !== "string" || !answer.trim()) {
+        return res.status(400).json({ message: "Write your answer before requesting feedback." })
+    }
+    if (answer.length > 8000) {
+        return res.status(400).json({ message: "Please keep your answer under 8,000 characters." })
+    }
+
+    const evaluation = await evaluatePracticeAnswer({
+        question: question.trim(),
+        intention: typeof intention === "string" ? intention.trim() : "",
+        answer: answer.trim(),
+        targetRole: typeof targetRole === "string" ? targetRole.trim() : ""
+    })
+
+    return res.status(200).json({
+        message: "Your answer has been evaluated.",
+        evaluation
+    })
+}
+
 module.exports = {
     generateInterViewReportController,
     getInterviewReportByIdController,
     getAllInterviewReportsController,
-    generateResumePdfController
+    generateResumePdfController,
+    evaluatePracticeAnswerController
 }
