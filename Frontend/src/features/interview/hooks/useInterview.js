@@ -10,9 +10,9 @@ export const useInterview = () => {
   const { loading, setLoading, report, setReport, reports, setReports } = context
   const [error, setError] = useState('')
 
-  const generateReport = async ({ jobDescription, selfDescription, resumeFile }) => {
+  const generateReport = async ({ targetRole, jobDescription, selfDescription, resumeFile }) => {
     setLoading(true); setError('')
-    try { const response = await generateInterviewReport({ jobDescription, selfDescription, resumeFile }); const next = response?.interviewReport; if (!next?._id) throw new Error('The server response did not include an interview report.'); setReport(next); return next }
+    try { const response = await generateInterviewReport({ targetRole, jobDescription, selfDescription, resumeFile }); const next = response?.interviewReport; if (!next?._id) throw new Error('The server response did not include an interview report.'); setReport(next); return next }
     catch (err) { const message = err.response?.data?.message || err.response?.data?.error || err.message || 'Unable to generate report.'; setError(message); console.error('Generate interview report:', message); return null }
     finally { setLoading(false) }
   }
