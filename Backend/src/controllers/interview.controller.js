@@ -7,7 +7,7 @@ const { generateInterviewReport, generateResumePdf } = require("../services/ai.s
  * A resume is optional when the candidate provides a self-description.
  */
 async function generateInterViewReportController(req, res) {
-    const { selfDescription = "", jobDescription = "" } = req.body
+    const { targetRole = "", selfDescription = "", jobDescription = "" } = req.body
 
     if (!jobDescription.trim()) {
         return res.status(400).json({ message: "Job description is required." })
@@ -36,6 +36,7 @@ async function generateInterViewReportController(req, res) {
     const generatedReport = await generateInterviewReport({
         resume: resumeText,
         selfDescription,
+        targetRole,
         jobDescription
     })
 
@@ -46,7 +47,7 @@ async function generateInterViewReportController(req, res) {
         jobDescription,
         ...generatedReport,
         // The schema requires a title; keep a safe fallback if AI omits it.
-        title: generatedReport.title?.trim() || "Interview preparation"
+        title: generatedReport.title?.trim() || targetRole.trim() || "Interview preparation"
     })
 
     return res.status(201).json({
