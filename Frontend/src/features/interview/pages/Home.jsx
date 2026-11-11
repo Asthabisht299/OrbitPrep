@@ -14,6 +14,7 @@ export default function Home() {
 
   const { user, handleLogout } = useAuth()
 
+  const [targetRole, setTargetRole] = useState('')
   const [jobDescription, setJobDescription] = useState('')
   const [selfDescription, setSelfDescription] = useState('')
   const [selectedFile, setSelectedFile] = useState(null)
@@ -80,6 +81,7 @@ export default function Home() {
     }
 
     const result = await generateReport({
+      targetRole: targetRole.trim(),
       jobDescription: jobDescription.trim(),
       selfDescription: selfDescription.trim(),
       resumeFile: selectedFile
@@ -185,6 +187,24 @@ export default function Home() {
 
               <div className="form-stack">
 
+                {/* TARGET ROLE */}
+                <div>
+                  <label className="field-label" htmlFor="targetRole">
+                    <span><span className="dashboard-step">01</span> Target role</span>
+                    <small>OPTIONAL</small>
+                  </label>
+                  <input
+                    className="field"
+                    id="targetRole"
+                    type="text"
+                    value={targetRole}
+                    onChange={(e) => setTargetRole(e.target.value.slice(0, 100))}
+                    maxLength={100}
+                    placeholder="e.g. Graduate Software Engineer"
+                  />
+                  <div className="form-meta"><span>Helps AI tailor your questions and report title.</span><span>{targetRole.length}/100</span></div>
+                </div>
+
                 {/* JOB DESCRIPTION */}
                 <div>
 
@@ -193,7 +213,7 @@ export default function Home() {
                     htmlFor="jobDescription"
                   >
                     <span>
-                      <span className="dashboard-step">01</span>
+                      <span className="dashboard-step">02</span>
                       Target job description
                     </span>
 
@@ -228,7 +248,7 @@ export default function Home() {
 
                   <label className="field-label">
                     <span>
-                      <span className="dashboard-step">02</span>
+                      <span className="dashboard-step">03</span>
                       Upload your resume
                     </span>
 
