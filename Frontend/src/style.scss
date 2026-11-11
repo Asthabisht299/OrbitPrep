@@ -1715,3 +1715,68 @@ textarea { resize: vertical; }
   .auth-story-v2 { display: none; }
   .auth-side-v2 { min-height: 100vh; padding: 35px 23px; }
 }
+
+
+/* INTERACTIVE PRACTICE PROGRESS */
+.practice-progress {
+  display: grid;
+  gap: 12px;
+  margin: 4px 0 22px;
+  padding: 16px 18px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: rgba(13, 22, 42, .62);
+}
+.practice-progress-copy {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.practice-progress-copy span {
+  color: var(--muted);
+  font: 500 .68rem var(--mono);
+  letter-spacing: .09em;
+}
+.practice-progress-copy strong {
+  color: var(--white);
+  font: 600 .82rem var(--display);
+}
+.practice-progress-track {
+  height: 7px;
+  overflow: hidden;
+  border-radius: 99px;
+  background: rgba(150, 170, 220, .14);
+}
+.practice-progress-track span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #8b78ff, #55e6ff);
+  transition: width .25s ease;
+}
+.practice-toggle {
+  margin-top: 14px;
+  padding: 9px 13px;
+  border: 1px solid rgba(85, 230, 255, .38);
+  border-radius: 10px;
+  background: rgba(85, 230, 255, .08);
+  color: #8cecff;
+  font: 600 .78rem var(--display);
+  cursor: pointer;
+  transition: background .2s ease, border-color .2s ease, transform .2s ease;
+}
+.practice-toggle:hover {
+  background: rgba(85, 230, 255, .15);
+  transform: translateY(-1px);
+}
+.practice-toggle.is-practiced {
+  border-color: rgba(117, 224, 169, .4);
+  background: rgba(117, 224, 169, .1);
+  color: #91e9b8;
+}
+@media (prefers-reduced-motion: reduce) {
+  .practice-progress-track span,
+  .practice-toggle { transition: none; }
+}
