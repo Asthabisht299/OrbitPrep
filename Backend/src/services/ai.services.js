@@ -59,6 +59,7 @@ const interviewReportSchema = z.object({
 async function generateInterviewReport({
     resume,
     selfDescription,
+    targetRole,
     jobDescription
 }) {
 
@@ -72,6 +73,9 @@ ${resume}
 
 CANDIDATE SELF DESCRIPTION:
 ${selfDescription}
+
+TARGET ROLE:
+${targetRole || "Infer the role from the job description"}
 
 TARGET JOB DESCRIPTION:
 ${jobDescription}
@@ -111,7 +115,7 @@ Every day must contain:
 - tasks: At least 2 practical tasks.
 
 6. JOB TITLE:
-Identify the target job title from the job description.
+Use the supplied target role when present; otherwise identify the target job title from the job description.
 If no exact title is mentioned, infer a suitable title.
 Never return an empty title.
 
