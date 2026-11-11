@@ -456,7 +456,8 @@ export default function Interview() {
                           item={item}
                           index={index}
                           practiced={Boolean(practicedQuestions[`${activeNav}-${index}`])}
-                          onTogglePracticed={() => togglePracticed(index)}\n                          targetRole={report.title || ''}
+                          onTogglePracticed={() => togglePracticed(index)}
+                          targetRole={report.title || ''}
                         />
                       ))}
                     </div>
