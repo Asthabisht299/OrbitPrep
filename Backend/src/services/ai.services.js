@@ -157,7 +157,6 @@ IMPORTANT:
         config: {
             responseMimeType: "application/json",
             responseSchema: zodToJsonSchema(interviewReportSchema),
-            temperature: 0.2,
             maxOutputTokens: 8192
         }
 
@@ -314,7 +313,6 @@ Return rubric with those four scores, 1-4 specific strengths, 1-4 concrete prior
         config: {
             responseMimeType: "application/json",
             responseSchema: zodToJsonSchema(evaluationSchema),
-            temperature: 0.1,
             maxOutputTokens: 4096
         }
     });
