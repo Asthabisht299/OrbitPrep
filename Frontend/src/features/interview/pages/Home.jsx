@@ -232,7 +232,7 @@ export default function Home() {
                       Upload your resume
                     </span>
 
-                    <small>PDF OR DOCX</small>
+                    <small>PDF ONLY</small>
                   </label>
 
                   <label
