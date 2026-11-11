@@ -55,3 +55,9 @@ export const generateResumePdf = async ({ interviewReportId }) => {
 
     return response.data
 }
+
+/** Evaluate a written practice answer with the AI interview coach. */
+export const evaluatePracticeAnswer = async (payload) => {
+    const response = await api.post("/api/interview/practice/evaluate", payload)
+    return response.data
+}
