@@ -1780,3 +1780,75 @@ textarea { resize: vertical; }
   .practice-progress-track span,
   .practice-toggle { transition: none; }
 }
+
+
+/* ORBITPREP BRAND SYSTEM */
+.orbitprep-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: #edf3ff;
+  white-space: nowrap;
+}
+.orbitprep-logo-mark {
+  display: block;
+  width: 34px;
+  height: 34px;
+  flex: 0 0 34px;
+  filter: drop-shadow(0 4px 12px rgba(103, 153, 255, .2));
+}
+.orbitprep-wordmark {
+  color: #edf3ff;
+  font-family: 'Space Grotesk', 'DM Sans', sans-serif;
+  font-size: 1.13rem;
+  font-weight: 700;
+  letter-spacing: -.055em;
+}
+.orbitprep-wordmark span {
+  color: #72dcf5;
+}
+.ui-mark {
+  display: block;
+  width: 22px;
+  height: 22px;
+}
+.icon-tile .ui-mark {
+  width: 25px;
+  height: 25px;
+}
+.report-symbol {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border: 1px solid rgba(112, 220, 245, .2);
+  border-radius: 11px;
+  background: rgba(112, 220, 245, .07);
+  color: #75e2f6;
+}
+.report-symbol .ui-mark {
+  width: 19px;
+  height: 19px;
+}
+.hero-status-dot,
+.ai-status-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #72e2c0;
+  box-shadow: 0 0 0 4px rgba(114, 226, 192, .1);
+}
+.ai-status-dot { margin-right: 5px; vertical-align: middle; }
+.tip-decoration .ui-mark { width: 32px; height: 32px; }
+.roadmap-day-icon .ui-mark { width: 20px; height: 20px; }
+.report-nav-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+@media (max-width: 700px) {
+  .orbitprep-logo-mark { width: 30px; height: 30px; flex-basis: 30px; }
+  .orbitprep-wordmark { font-size: 1.04rem; }
+}
