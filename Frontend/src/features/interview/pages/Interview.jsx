@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router'
 import { useInterview } from '../hooks/useInterview.js'
 import OrbitPrepLogo, { OrbitMark } from '../components/OrbitPrepLogo.jsx'
+import { evaluatePracticeAnswer } from '../services/interview.api.js'
 
 const NAV_ITEMS = [
   { id: 'technical', label: 'Technical questions', icon: 'code' },
@@ -61,6 +62,47 @@ function QuestionCard({ item, index, practiced, onTogglePracticed }) {
           >
             {practiced ? '✓ Practiced' : 'Mark as practiced'}
           </button>
+
+          <div className="answer-coach">
+            <label className="answer-label" htmlFor={`practice-answer-${index}`}>YOUR ANSWER</label>
+            <textarea
+              id={`practice-answer-${index}`}
+              className="practice-answer-input"
+              value={draftAnswer}
+              onChange={(event) => setDraftAnswer(event.target.value.slice(0, 8000))}
+              placeholder="Write how you would answer this in a real interview..."
+              rows={5}
+              maxLength={8000}
+            />
+            <div className="practice-answer-meta">
+              <span>Be specific. Use your own projects and experiences.</span>
+              <span>{draftAnswer.length}/8000</span>
+            </div>
+            <button
+              type="button"
+              className="practice-toggle evaluate-answer-button"
+              onClick={handleEvaluate}
+              disabled={evaluationLoading || !draftAnswer.trim()}
+            >
+              {evaluationLoading ? 'Evaluating your answer…' : 'Get AI feedback ↗'}
+            </button>
+            {evaluationError && <p className="practice-error" role="alert">{evaluationError}</p>}
+            {evaluation && (
+              <section className="evaluation-result" aria-live="polite">
+                <div className="evaluation-score">
+                  <span>AI ANSWER SCORE</span>
+                  <strong>{evaluation.score}<small>/100</small></strong>
+                </div>
+                <p className="evaluation-summary">{evaluation.summary}</p>
+                <div className="evaluation-columns">
+                  <div><h4>What you did well</h4><ul>{evaluation.strengths?.map((item, i) => <li key={i}>{item}</li>)}</ul></div>
+                  <div><h4>How to improve</h4><ul>{evaluation.improvements?.map((item, i) => <li key={i}>{item}</li>)}</ul></div>
+                </div>
+                <h4>Example of a stronger answer</h4>
+                <p>{evaluation.sampleAnswer}</p>
+              </section>
+            )}
+          </div>
 
         </div>
       )}
@@ -414,7 +456,7 @@ export default function Interview() {
                           item={item}
                           index={index}
                           practiced={Boolean(practicedQuestions[`${activeNav}-${index}`])}
-                          onTogglePracticed={() => togglePracticed(index)}
+                          onTogglePracticed={() => togglePracticed(index)}\n                          targetRole={report.title || ''}
                         />
                       ))}
                     </div>
