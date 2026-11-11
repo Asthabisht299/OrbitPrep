@@ -1,0 +1,67 @@
+
+.button {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+
+    border: 1px solid transparent;
+    outline: none;
+    padding: 0.85rem 1.6rem;
+    border-radius: 0.85rem;
+
+    font-family: inherit;
+    font-size: 0.95rem;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+
+    cursor: pointer;
+    overflow: hidden;
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        background 0.25s ease,
+        border-color 0.25s ease;
+
+    &:focus-visible {
+        outline: 2px solid #55e6ff;
+        outline-offset: 3px;
+    }
+
+    &:active {
+        transform: scale(0.97);
+    }
+
+    &:disabled {
+        opacity: 0.55;
+        cursor: not-allowed;
+        transform: none;
+        box-shadow: none;
+    }
+
+    &.primary-button {
+        color: #ffffff;
+        background: linear-gradient(110deg, #7655e8, #4778f5 55%, #35c9e8);
+        box-shadow: 0 5px 20px rgba(105, 91, 230, 0.25);
+
+        &:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 9px 28px rgba(92, 111, 245, 0.4);
+            filter: brightness(1.1);
+        }
+    }
+
+    &.secondary-button {
+        color: #dce5ff;
+        background: rgba(255, 255, 255, 0.04);
+        border-color: rgba(170, 190, 230, 0.18);
+
+        &:hover:not(:disabled) {
+            background: rgba(255, 255, 255, 0.09);
+            border-color: rgba(85, 230, 255, 0.45);
+            transform: translateY(-2px);
+        }
+    }
+}
