@@ -2,6 +2,7 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router'
 import { useAuth } from '../hooks/useAuth'
+import OrbitPrepLogo, { OrbitMark } from '../../interview/components/OrbitPrepLogo.jsx'
 
 export default function Login() {
   const { loading, handleLogin } = useAuth()
@@ -34,8 +35,7 @@ export default function Login() {
       <section className="auth-story auth-story-v2">
 
         <Link to="/login" className="brand brand-v2">
-          <span className="brand-mark">✳</span>
-          <span>orbit<em>prep</em></span>
+          <OrbitPrepLogo />
         </Link>
 
         <div className="story-copy story-copy-v2">
@@ -68,14 +68,14 @@ export default function Login() {
                 <span className="status-dot"></span>
                 AI WORKSPACE
               </span>
-              <span className="visual-icon">✦</span>
+              <span className="visual-icon"><OrbitMark className="ui-mark" /></span>
             </div>
 
             <div className="visual-orbit">
               <div className="orbit-ring orbit-ring-one"></div>
               <div className="orbit-ring orbit-ring-two"></div>
               <div className="orbit-core">AI</div>
-              <span className="orbit-node node-one">✦</span>
+              <span className="orbit-node node-one" aria-hidden="true" />
               <span className="orbit-node node-two">⌘</span>
               <span className="orbit-node node-three">↗</span>
             </div>
@@ -92,7 +92,7 @@ export default function Login() {
         </div>
 
         <div className="story-footer-v2">
-          <span>✳</span>
+          <OrbitMark className="ui-mark" />
           Built for your next big opportunity.
         </div>
 
@@ -104,8 +104,7 @@ export default function Login() {
         <div className="auth-card auth-card-v2">
 
           <div className="login-mobile-brand">
-            <span className="brand-mark">✳</span>
-            orbit<em>prep</em>
+            <OrbitPrepLogo />
           </div>
 
           <div className="login-heading">
