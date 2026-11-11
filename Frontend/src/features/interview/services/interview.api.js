@@ -9,9 +9,10 @@ const api = axios.create({
 /**
  * @description Service to generate interview report based on user self description, resume and job description.
  */
-export const generateInterviewReport = async ({ jobDescription, selfDescription, resumeFile }) => {
+export const generateInterviewReport = async ({ targetRole, jobDescription, selfDescription, resumeFile }) => {
 
     const formData = new FormData()
+    if (targetRole) formData.append("targetRole", targetRole)
     formData.append("jobDescription", jobDescription)
     formData.append("selfDescription", selfDescription)
     if (resumeFile) formData.append("resume", resumeFile)
