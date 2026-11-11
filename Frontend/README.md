@@ -1,16 +1,48 @@
-# React + Vite
+# OrbitPrep — Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+OrbitPrep is an AI-powered interview preparation and resume-building workspace. This React application lets candidates create role-specific preparation reports from a PDF resume and/or a self-description.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- Account registration and sign-in
+- Resume-based and self-description-based interview analysis
+- Role alignment score and skill-gap insights
+- AI-generated technical and behavioral interview questions
+- A structured preparation roadmap
+- Saved interview report history
+- Tailored resume PDF generation
 
-## React Compiler
+## Tech stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- React
+- React Router
+- Vite
+- SCSS
+- Axios
 
-## Expanding the ESLint configuration
+## Run locally
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+1. Open a terminal in the `Frontend` directory.
+2. Install dependencies:
+
+   ```bash
+   npm install
+   ```
+
+3. Start the development server:
+
+   ```bash
+   npm run dev
+   ```
+
+4. Open the local URL printed by Vite.
+
+The backend must also be running and its API base URL must be configured in the frontend API service.
+
+## Resume upload
+
+The current backend resume parser accepts PDF files up to 3 MB. If a candidate does not have a resume ready, they can provide a self-description instead.
+
+## Build
+
+Run `npm run build` to create the production build in `dist/`.
