@@ -18,6 +18,7 @@ export default function Home() {
   const [selfDescription, setSelfDescription] = useState('')
   const [selectedFile, setSelectedFile] = useState(null)
   const [formError, setFormError] = useState('')
+  const [isDragging, setIsDragging] = useState(false)
 
   const resumeInputRef = useRef(null)
   const navigate = useNavigate()
@@ -46,21 +47,18 @@ export default function Home() {
       return
     }
 
-    const allowed = [
-      'application/pdf',
-      'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
-    ]
-
     const validType =
-      allowed.includes(file.type) || /\.(pdf|docx)$/i.test(file.name)
+      file.type === 'application/pdf' || /\.pdf$/i.test(file.name)
 
     if (!validType) {
-      setFormError('Please choose a PDF or DOCX file.')
+      setSelectedFile(null)
+      setFormError('Please choose a PDF file. DOCX uploads are not supported yet.')
       return
     }
 
-    if (file.size > 5 * 1024 * 1024) {
-      setFormError('Your resume must be smaller than 5 MB.')
+    if (file.size > 3 * 1024 * 1024) {
+      setSelectedFile(null)
+      setFormError('Your PDF must be smaller than 3 MB.')
       return
     }
 
@@ -238,8 +236,15 @@ export default function Home() {
                   </label>
 
                   <label
-                    className="dropzone dashboard-dropzone"
+                    className={`dropzone dashboard-dropzone ${isDragging ? 'is-dragging' : ''}`}
                     htmlFor="resume"
+                    onDragOver={(e) => { e.preventDefault(); setIsDragging(true) }}
+                    onDragLeave={() => setIsDragging(false)}
+                    onDrop={(e) => {
+                      e.preventDefault()
+                      setIsDragging(false)
+                      handleFile(e.dataTransfer.files?.[0])
+                    }}
                   >
 
                     <span className="drop-icon">↥</span>
@@ -257,7 +262,7 @@ export default function Home() {
                     </span>
 
                     <span className="upload-format">
-                      PDF / DOCX · Maximum 5 MB
+                      PDF only · Maximum 3 MB
                     </span>
 
                     {selectedFile && (
@@ -273,13 +278,26 @@ export default function Home() {
                       type="file"
                       id="resume"
                       name="resume"
-                      accept=".pdf,.docx,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                      accept=".pdf,application/pdf"
                       onChange={(e) =>
                         handleFile(e.target.files?.[0])
                       }
                     />
 
                   </label>
+
+                  {selectedFile && (
+                    <button
+                      type="button"
+                      className="upload-remove"
+                      onClick={() => {
+                        setSelectedFile(null)
+                        if (resumeInputRef.current) resumeInputRef.current.value = ''
+                      }}
+                    >
+                      Remove selected resume
+                    </button>
+                  )}
 
                   <div className="or-line">
                     OR ADD YOUR EXPERIENCE MANUALLY
