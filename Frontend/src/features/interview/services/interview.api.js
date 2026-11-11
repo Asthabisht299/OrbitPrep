@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-    baseURL: "http://localhost:3000",
+    baseURL: import.meta.env.VITE_API_URL || "http://localhost:3000",
     withCredentials: true,
 })
 
@@ -16,11 +16,8 @@ export const generateInterviewReport = async ({ jobDescription, selfDescription,
     formData.append("selfDescription", selfDescription)
     if (resumeFile) formData.append("resume", resumeFile)
 
-    const response = await api.post("/api/interview/", formData, {
-        headers: {
-            "Content-Type": "multipart/form-data"
-        }
-    })
+    // Let the browser set the multipart boundary for FormData.
+    const response = await api.post("/api/interview/", formData)
 
     return response.data
 
