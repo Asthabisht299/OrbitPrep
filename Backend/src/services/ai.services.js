@@ -253,7 +253,6 @@ REQUIREMENTS:
         config: {
             responseMimeType: "application/json",
             responseSchema: zodToJsonSchema(resumePdfSchema),
-            temperature: 0.2,
             maxOutputTokens: 8192
         }
 
