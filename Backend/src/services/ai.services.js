@@ -252,7 +252,46 @@ REQUIREMENTS:
 }
 
 
+
+async function evaluatePracticeAnswer({ question, intention, answer, targetRole }) {
+    const evaluationSchema = z.object({
+        score: z.number().min(0).max(100),
+        strengths: z.array(z.string()).min(1),
+        improvements: z.array(z.string()).min(1),
+        sampleAnswer: z.string(),
+        summary: z.string()
+    });
+
+    const prompt = `
+You are a supportive but honest interview coach.
+Target role: ${targetRole || "the role described in the question"}.
+Question: ${question}
+Interviewer intention: ${intention || "Assess relevance, clarity, correctness and communication."}
+Candidate answer: ${answer}
+
+Return JSON:
+- score: integer 0-100 for correctness, relevance, clarity and completeness.
+- strengths: 1-4 specific things done well.
+- improvements: 1-4 actionable improvements.
+- sampleAnswer: concise stronger example; never invent personal experience, use placeholders for personal examples.
+- summary: one encouraging but honest sentence.
+Do not reward length alone. Score empty or irrelevant answers low.
+`;
+
+    const response = await ai.models.generateContent({
+        model: "gemini-3-flash-preview",
+        contents: prompt,
+        config: {
+            responseMimeType: "application/json",
+            responseSchema: zodToJsonSchema(evaluationSchema)
+        }
+    });
+
+    return evaluationSchema.parse(JSON.parse(response.text));
+}
+
 module.exports = {
     generateInterviewReport,
-    generateResumePdf
+    generateResumePdf,
+    evaluatePracticeAnswer
 };
