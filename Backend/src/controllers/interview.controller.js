@@ -7,9 +7,9 @@ const { generateInterviewReport, generateResumePdf, evaluatePracticeAnswer } = r
  * A resume is optional when the candidate provides a self-description.
  */
 async function generateInterViewReportController(req, res) {
-    const { targetRole = "", selfDescription = "", jobDescription = "" } = req.body
+    const { targetRole = "", selfDescription = "", jobDescription = "" } = req.body || ""
 
-    if (!jobDescription.trim()) {
+    if (typeof targetRole !== "string" || typeof selfDescription !== "string" || typeof jobDescription !== "string") {\n        return res.status(400).json({ message: "Target role, self-description and job description must be text." })\n    }\n\n    if (!jobDescription.trim()) {
         return res.status(400).json({ message: "Job description is required." })
     }
 
@@ -25,7 +25,7 @@ async function generateInterViewReportController(req, res) {
             const resumeContent = await new pdfParse.PDFParse(
                 Uint8Array.from(req.file.buffer)
             ).getText()
-            resumeText = resumeContent.text || ""
+            resumeText = (resumeContent.text || "").trim()\n            if (!resumeText) {\n                return res.status(400).json({ message: "This PDF contains no readable text. Please upload a text-based PDF or provide a self-description." })\n            }
         } catch (error) {
             return res.status(400).json({
                 message: "We couldn't read that PDF. Please upload a valid, text-based PDF."
@@ -33,7 +33,7 @@ async function generateInterViewReportController(req, res) {
         }
     }
 
-    const generatedReport = await generateInterviewReport({
+    if (resumeText.length > 30000 || selfDescription.length > 10000 || jobDescription.length > 20000) {\n        return res.status(400).json({ message: "Your resume or description is too long. Please shorten the text and try again." })\n    }\n\n    const generatedReport = await generateInterviewReport({
         resume: resumeText,
         selfDescription,
         targetRole,
